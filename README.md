@@ -38,12 +38,14 @@ use tensorflow inception
 
     ```
     OUTPUT_DIRECTORY=$HOME/work/flower-recognition/final_data/
-    python3 ~/work/models/inception/inception/flowers_train.py --train_dir="${TRAIN_DIR}" \
-    --data_dir="${FLOWERS_DATA_DIR}" \
-    --pretrained_model_checkpoint_path="${MODEL_PATH}" \
-    --fine_tune=True \
-    --initial_learning_rate=0.001 \
-    --input_queue_memory_factor=1
+    python3 ~/work/models/inception/inception/data/build_image_data.py \
+    --train_directory="${TRAIN_DIR}" \
+    --validation_directory="${VALIDATION_DIR}" \
+    --output_directory="${OUTPUT_DIRECTORY}" \
+    --labels_file="${LABELS_FILE}" \
+    --train_shards=128 \
+    --validation_shards=24 \
+    --num_threads=8
     ```
 
 8. `FLOWERS_DATA_DIR=$HOME/work/flower-recognition/dataset/`
@@ -61,3 +63,5 @@ use tensorflow inception
     ```
 
 ## Retrain tensorflow in docker
+
+[the tensorflow for poets](https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/#1)
