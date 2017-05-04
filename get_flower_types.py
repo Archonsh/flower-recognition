@@ -14,7 +14,8 @@ soup = BeautifulSoup(re.text, 'html.parser')
 
 h3s = soup.find_all("h3", class_="flower_name")
 
-flowers = open('flowers.txt','wb')
+flowers = open('flowers.txt','w')
 
 for h3 in h3s:
-    flowers.write(h3.text + '\n')
+    line = h3.text + '\n'
+    flowers.write(line)
