@@ -16,6 +16,10 @@ use tensorflow inception
 
 6. `MODEL_PATH="${INCEPTION_MODEL_DIR}/inception-v3/model.ckpt-157585"`
 
+7. `TRAIN_DIR=$HOME/work/flower-recognition/dataset`
+
+8. `VALIDATION_DIR=$HOME/work/flower-recognition/dataset2`
+
 7. In particular, you will need to create a directory of training images that reside within $TRAIN_DIR and $VALIDATION_DIR arranged as such:
 
     ```$train_dir/dog/image0.jpeg
@@ -48,7 +52,7 @@ use tensorflow inception
     --num_threads=8
     ```
 
-8. `FLOWERS_DATA_DIR=$HOME/work/flower-recognition/dataset/`
+8. `FLOWERS_DATA_DIR=$HOME/work/flower-recognition/final_data/`
 
 9. `TRAIN_DIR=$HOME/work/temp/flowers_train/`
 
