@@ -69,6 +69,62 @@ use tensorflow inception
 
 ## Retrain tensorflow in docker
 
+### 前期安装工作
+
+#### 安装 Docker 与测试
+
+从 [docker](https://www.docker.com/community-edition) 官方网站下载对应的镜像文件安装就可以了，当安装完成之后，需要对 docker 是否正确运行进行检测，输入以下命令，如果没有报错那么说明一切顺利，可以开始进行下一步。
+
+```bash
+$ docker run hello-world
+```
+
+#### 在 Docker 中安装 Tensorflow 并测试
+
+Docker 并不自带 Tensorflow 包，因此需要手动从 Docker 镜像源上下载，输入以下命令：
+
+```bash
+$ docker run -it tensorflow/tensorflow:1.1.0 bash
+```
+
+如果之前没有安装过 Tensorflow，就会自动从官网上下载，如下所示：
+
+```bash
+Unable to find image 'tensorflow/tensorflow:1.1.0' locally
+1.1.0: Pulling from tensorflow/tensorflow
+c62795f78da9: Pull complete
+d4fceeeb758e: Pull complete
+5c9125a401ae: Pull complete
+0062f774e994: Pull complete
+6b33fd031fac: Pull complete
+353b34ef0a98: Pull complete
+4f6aefc14b68: Pull complete
+ce066374c6ca: Pull complete
+c0755a91ab3a: Pull complete
+f03279b52d25: Pull complete
+d1c27c29b7e3: Pull complete
+23807c5f4b3e: Pull complete
+Digest: sha256:27bd43f1cf71c45eb48cb6e067b7cef47b168ac11c685d55a3495d27f0d59543
+Status: Downloaded newer image for tensorflow/tensorflow:1.1.0
+```
+
+最后进入下面这个状态说明安装成功。
+
+```bash
+root@38038715aa2f:/notebooks#
+```
+
+输入 python，进入 python 命令行编辑界面，输入以下命令：
+
+```python
+import tensorflow as tf
+hello = tf.constant('Hello, TensorFlow!')
+sess = tf.Session() # It will print some warnings here.
+print(sess.run(hello))
+```
+
+如果系统正确输出了 "Hello TensorFlow!"，则说明整个 Docker 以及 Tensorflow 运行正常，可以开始进行下一步的操作了。'Ctrl-d'离开 Docker
+
 
 
 [the tensorflow for poets](https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/#1)
