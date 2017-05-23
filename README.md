@@ -185,7 +185,7 @@ $ python retrain.py \
 
 如果遇到 `ERRO[XXXX] error getting events from daemon: EOF` 这种 bug 的话，需要配置你的 CPU 核数？具体我也不是很懂，因为没有遇到，详情可以参考 [issue](https://github.com/moby/moby/issues/31220)，应该是进行小配置即可。
 
-一切顺利的话，你的terminal会出现下面的输出，接下来就只需要等待训练结束即可了。
+一切顺利的话，你的 terminal 会出现下面的输出，接下来就只需要等待训练结束即可了。
 
 ```bash
 2017-05-23 06:45:41.577876: Step 240: Validation accuracy = 89.0% (N=100)
@@ -193,7 +193,7 @@ $ python retrain.py \
 2017-05-23 06:45:48.890964: Step 250: Cross entropy = 0.056585
 ```
 
-如果你对你的机器非常有自信的话，CPU强大的话（至少不能像我这种），可以考虑采取准确率更高的方式进行训练，上述的例子训练步数才500，如果你没有在刚刚步骤当中减少对应的图片集的话，也就是说如果你有巨大的数据集需要处理的话，500步是显然不够的，需要使用默认的4000步就可以了，如：
+如果你对你的机器非常有自信的话，CPU 强大的话（至少不能像我这种），可以考虑采取准确率更高的方式进行训练，上述的例子训练步数才 500，如果你没有在刚刚步骤当中减少对应的图片集的话，也就是说如果你有巨大的数据集需要处理的话，500 步是显然不够的，需要使用默认的 4000 步就可以了，如：
 
 ```bash
 $ python /tensorflow/tensorflow/examples/image_retraining/retrain.py \
@@ -205,7 +205,7 @@ $ python /tensorflow/tensorflow/examples/image_retraining/retrain.py \
   --image_dir=dataset
 ```
 
-关于CNN的具体知识就不在这里赘述了，以后有机会的话会详细在记录一下学习的过程，如果你的脚本训练顺利的话，会得到以下的结果：
+关于 CNN 的具体知识就不在这里赘述了，以后有机会的话会详细在记录一下学习的过程，如果你的脚本训练顺利的话，会得到以下的结果：
 
 ```bash
 Final test accuracy = 84.6% (N=13)
@@ -214,7 +214,7 @@ Converted 2 variables to const ops.
 
 ### 使用训练好的模型
 
-训练好的模型会自动生成在`tf_files/retrained_graph.pb`，其中还有一些其他文件，比如样本标签文件`tf_files/retrained_labels.txt`等，有了这些文件之后就可以像[picture_recognition](https://www.tensorflow.org/versions/master/tutorials/image_recognition)上所写的一样了，PS：最初我也是从这里开始接触图片分类的。
+训练好的模型会自动生成在 `tf_files/retrained_graph.pb`，其中还有一些其他文件，比如样本标签文件 `tf_files/retrained_labels.txt` 等，有了这些文件之后就可以像 [picture_recognition](https://www.tensorflow.org/versions/master/tutorials/image_recognition) 上所写的一样了，PS：最初我也是从这里开始接触图片分类的。
 
 ```python
 import os, sys
@@ -255,7 +255,7 @@ with tf.Session() as sess:
         print('%s (score = %.5f)' % (human_string, score))
 ```
 
-大概的分类功能照着上面的python文件进行编写就可以了，可以直接从网路获取对应的python脚本：
+大概的分类功能照着上面的 python 文件进行编写就可以了，可以直接从网路获取对应的 python 脚本：
 
 ```bash
 $ curl -L https://goo.gl/3lTKZs > label_image.py
@@ -274,11 +274,8 @@ azalea (score = 0.56057)
 aconite (score = 0.43943)
 ```
 
+## 小结
 
-
-
-
-
-
+一直以来就想实现一个自己的图片分类器，但是自己实现的，像我这种水平又怎么能有 inception 这种水平的分类器出来，最后似乎不得已妥协了，谷歌就谷歌吧，毕竟世界都是谷歌的，手动滑稽，以上所有的教程大部分都是按照下面的讲义来的，当然第一部分也是我自己摸索的，第二部分按照谷歌官方的 tensorflow 教程基本都可以完成，也希望终有一天能从利用别人的模型到实现自己的模型。
 
 [the tensorflow for poets](https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/#1)
