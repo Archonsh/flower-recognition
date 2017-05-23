@@ -216,6 +216,65 @@ Converted 2 variables to const ops.
 
 训练好的模型会自动生成在`tf_files/retrained_graph.pb`，其中还有一些其他文件，比如样本标签文件`tf_files/retrained_labels.txt`等，有了这些文件之后就可以像[picture_recognition](https://www.tensorflow.org/versions/master/tutorials/image_recognition)上所写的一样了，PS：最初我也是从这里开始接触图片分类的。
 
+```python
+import os, sys
+
+import tensorflow as tf
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+# change this as you see fit
+image_path = sys.argv[1]
+
+# Read in the image_data
+image_data = tf.gfile.FastGFile(image_path, 'rb').read()
+
+# Loads label file, strips off carriage return
+label_lines = [line.rstrip() for line
+                   in tf.gfile.GFile("retrained_labels.txt")]
+
+# Unpersists graph from file
+with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:
+    graph_def = tf.GraphDef()
+    graph_def.ParseFromString(f.read())
+    tf.import_graph_def(graph_def, name='')
+
+with tf.Session() as sess:
+    # Feed the image_data as input to the graph and get first prediction
+    softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
+
+    predictions = sess.run(softmax_tensor, \
+             {'DecodeJpeg/contents:0': image_data})
+
+    # Sort to show labels of first prediction in order of confidence
+    top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
+
+    for node_id in top_k:
+        human_string = label_lines[node_id]
+        score = predictions[0][node_id]
+        print('%s (score = %.5f)' % (human_string, score))
+```
+
+大概的分类功能照着上面的python文件进行编写就可以了，可以直接从网路获取对应的python脚本：
+
+```bash
+$ curl -L https://goo.gl/3lTKZs > label_image.py
+```
+
+然后将需要分类的图片测试集放到路径中，运行脚本：
+
+```bash
+$ python3 label_image.py IMG_3941.JPG
+```
+
+最后的结果如下，结果不是特别理想，虽然最后确实分类正确了，但是误差还是较大，可能是由于图片集没有太杂乱，也不够大的原因，有空再好好优化一下。
+
+```bash
+azalea (score = 0.56057)
+aconite (score = 0.43943)
+```
+
+
 
 
 
